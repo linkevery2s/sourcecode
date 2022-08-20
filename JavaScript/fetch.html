@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+
+<html lang="ja">
+
+<head>
+  <title>JavaScriptのfetchを使おう！</title>
+</head>
+
+<script>
+  function ini() {
+    fetch('https://data.corona.go.jp/converted-json/covid19japan-npatients.json')
+      .then(response => response.json())
+      .then(data => {
+        day_s.innerHTML = data[data.length - 1].date.toLocaleString();
+        yousei.innerHTML = data[data.length - 1].npatients.toLocaleString();
+      });
+
+    fetch('https://data.corona.go.jp/converted-json/covid19japan-ncures.json')
+      .then(response => response.json())
+      .then(data => {
+        nyu.innerHTML = data[data.length - 1].ncures.toLocaleString();
+      });
+
+  }
+</script>
+
+<body onload="ini()">
+  <h1>JavaScriptのfetchを使おう！</h1>
+
+  日本のコロナ感染状況<br><br>
+  更新日：<span id="day_s"></span><br>
+  陽性者数：<span id="yousei"></span> 人<br>
+  入院治療者：<span id="nyu"></span> 人<br><br>
+
+出典：内閣官房、<a href="https://corona.go.jp/dashboard/">新型コロナウイルス感染症対策</a>、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja">CC BY 4.0</a>
+</body>
+
+</html>
