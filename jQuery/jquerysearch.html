@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head><title>jquery searchの使い方</title>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<script src ="https://cdn.jsdelivr.net/gh/DeuxHuitHuit/quicksearch/dist/jquery.quicksearch.min.js"></script>
+<script>
+function search(){
+$('#keyword').quicksearch('#list li');
+}
+</script>
+
+</head>
+<body onload="search();">
+
+<input id="keyword" type="text">
+
+<p>リスト</p>
+<ul id="list">
+  <li>りんご</li>
+  <li>みかん</li>
+  <li>いちご</li>
+  <li>メロン</li>
+  <li>パイナップル</li>
+  <li>もも</li>
+  <li>いちじく</li>
+  <li>キウイ</li>
+</ul>
+
+</body>
+</HTML>
