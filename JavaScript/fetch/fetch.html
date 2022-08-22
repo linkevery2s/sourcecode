@@ -6,8 +6,8 @@
   <title>fecthでスクレイピングしよう！</title>
 </head>
 
-<script>
-  async function ini() {
+<script type="module">
+  onload = async () => {
     const res = await fetch('https://data.corona.go.jp/converted-json/covid19japan-npatients.json');
     const data = await res.json();
 
@@ -26,7 +26,7 @@
   }
 </script>
 
-<body onload="ini()">
+<body>
   <h1>fecthでスクレイピングしよう！</h1>
 
   日本のコロナ感染状況<br><br>
