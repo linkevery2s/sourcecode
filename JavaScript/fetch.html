@@ -7,22 +7,21 @@
 </head>
 
 <script>
-  function ini() {
-    fetch('https://data.corona.go.jp/converted-json/covid19japan-npatients.json')
-      .then(response => response.json())
-      .then(data => {
+  async function ini() {
+    const res = await fetch('https://data.corona.go.jp/converted-json/covid19japan-npatients.json');
+    const data = await res.json();
 
-        console.log(data);
+    console.log(data);
 
-        day_s.innerHTML = data[data.length - 1].date.toLocaleString();
-        yousei.innerHTML = data[data.length - 1].npatients.toLocaleString();
-      });
+    day_s.innerHTML = data[data.length - 1].date.toLocaleString();
+    yousei.innerHTML = data[data.length - 1].npatients.toLocaleString();
 
-    fetch('https://data.corona.go.jp/converted-json/covid19japan-ncures.json')
-      .then(response => response.json())
-      .then(data => {
-        nyu.innerHTML = data[data.length - 1].ncures.toLocaleString();
-      });
+    const res2 = await fetch('https://data.corona.go.jp/converted-json/covid19japan-ncures.json');
+    const data2 = await res2.json();
+
+    console.log(data2);
+
+    nyu.innerHTML = data2[data2.length - 1].ncures.toLocaleString();
 
   }
 </script>
@@ -35,7 +34,7 @@
   陽性者数：<span id="yousei"></span> 人<br>
   入院治療者：<span id="nyu"></span> 人<br><br>
 
-出典：内閣官房、<a href="https://corona.go.jp/dashboard/">新型コロナウイルス感染症対策</a>、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja">CC BY 4.0</a>
+  出典：内閣官房、<a href="https://corona.go.jp/dashboard/">新型コロナウイルス感染症対策</a>、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja">CC BY 4.0</a>
 </body>
 
 </html>
