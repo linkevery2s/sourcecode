@@ -14122,7 +14122,7 @@
   // Always export us to window global (see #2364)
   window.L = exports;
 
-}));
+//}));
 //# sourceMappingURL=leaflet-src.js.map
 
 export default L
