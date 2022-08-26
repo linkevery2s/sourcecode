@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+
+<html lang="ja">
+
+<head>
+  <title>CORS CHECKER</title>
+</head>
+
+<script type="text/javascript">
+  function check_cors() {
+    const text_value = text_box.value;
+
+    fetch(text_value)
+      .then(response => {
+        result.innerHTML = response.ok + "<br>";
+        result.innerHTML += response.status + "<br>";
+
+      })
+      .then(() => {
+        result.innerHTML += "CORS成功！";
+      })
+      .catch((error) => {
+        result.innerHTML = error;
+
+      });
+
+  }
+</script>
+
+<body>
+  <h1>CORS CHECKER</h1>
+  <input type="text" id="text_box">
+  <span id="button" onclick="check_cors()">check</span>
+
+  <div id="result"></div>
+
+  &copy; hitoshi、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja">CC BY 4.0</a>
+</body>
+
+</html>
