@@ -60,6 +60,13 @@
     });
 
 
+    map.on('mouseenter', 'aichi', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'aichi', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
     map.addControl(new maplibregl.NavigationControl());
 
     map.addControl(new maplibregl.GeolocateControl({
