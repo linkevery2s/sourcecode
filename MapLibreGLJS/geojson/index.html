@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset='UTF-8' name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+  <title>geojsonを扱う</title>
+  <script src='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js'></script>
+  <link href='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css' rel='stylesheet' />
+  <style>
+    html,body,#map {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  <script type="module">
+    /* OpenStreetMap ベクトルタイル */
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: 'https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json',
+      center: [137, 36],
+      zoom: 5
+    });
+
+    map.on('load', function () {
+    // サークル設定
+      map.addSource('aichi', {
+        type: 'geojson',
+        data: './aichi.geojson'
+      });
+
+    // スタイル設定
+      map.addLayer({
+        'id': 'aichi',
+        'type': 'circle',
+        'source': 'aichi',
+        'layout': {},
+        'paint': {
+          'circle-color': '#2ca9e1',
+          'circle-radius': 10,
+          'circle-opacity': 0.8,
+          'circle-stroke-color': '#ffffff',
+          'circle-stroke-width': 1,
+        }
+      });
+    });
+
+    map.on('click', 'aichi', function (e) {
+      let coordinates = e.features[0].geometry.coordinates.slice();
+      let name = e.features[0].properties.Name;
+
+      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      }
+
+      new maplibregl.Popup()
+      .setLngLat(coordinates)
+      .setHTML(name)
+      .addTo(map);
+    });
+
+
+    map.addControl(new maplibregl.NavigationControl());
+
+    map.addControl(new maplibregl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: false
+      },
+      fitBoundsOptions: {maxZoom: 13},
+      trackUserLocation: true,
+      showUserLocation: true
+    }));
+
+  </script>
+</head>
+
+
+
+<body>
+
+  <div id='map'></div>
+
+</body>
+
+</html>
