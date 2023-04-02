@@ -2,7 +2,8 @@
 <html lang="ja">
 
 <head>
-  <title>carto地図利用</title>
+  <meta charset='UTF-8' name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+  <title>Maplibre GL JSの基本</title>
   <script src='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js'></script>
   <link href='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css' rel='stylesheet' />
   <style>
@@ -14,10 +15,9 @@
     }
   </style>
   <script type="module">
-    /* carto 地図 */
     const map = new maplibregl.Map({
       container: 'map',
-      style: 'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json',
+      style: 'https://demotiles.maplibre.org/style.json',
       center: [137, 36],
       zoom: 5
     });

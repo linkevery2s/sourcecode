@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset='UTF-8' name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+  <title>OpenStreetMap</title>
+  <script src='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js'></script>
+  <link href='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css' rel='stylesheet' />
+  <style>
+    html,body,#map {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  <script type="module">
+    /* OpenStreetMap ラスタータイル */
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: {
+        version: 8,
+        sources: {
+          rtile: {
+            type: 'raster',
+            tiles: [
+              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              ],
+            tileSize: 256,
+            attribution:
+            '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+          },
+        },
+        layers: [
+        {
+          id: 'raster-tiles',
+          type: 'raster',
+          source: 'rtile',
+          minzoom: 0,
+          maxzoom: 22,
+        },
+        ],
+      },
+      center: [137, 36],
+      zoom: 5,
+      pitch: 40
+    });
+
+    map.addControl(new maplibregl.NavigationControl());
+
+    map.addControl(new maplibregl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: false
+      },
+      fitBoundsOptions: {maxZoom: 13},
+      trackUserLocation: true,
+      showUserLocation: true
+    }));
+
+  </script>
+</head>
+
+
+
+<body>
+
+  <div id='map'></div>
+
+</body>
+
+</html>
+
+<!-- https://raw.githubusercontent.com/gsi-cyberjapan/gsivectortile-mapbox-gl-js/master/pale.json -->

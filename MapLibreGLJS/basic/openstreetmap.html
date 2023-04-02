@@ -2,7 +2,8 @@
 <html lang="ja">
 
 <head>
-  <title>Maplibre GL JSの基本</title>
+  <meta charset='UTF-8' name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+  <title>OpenStreetMap</title>
   <script src='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js'></script>
   <link href='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css' rel='stylesheet' />
   <style>
@@ -14,9 +15,10 @@
     }
   </style>
   <script type="module">
+    /* OpenStreetMap ベクトルタイル */
     const map = new maplibregl.Map({
       container: 'map',
-      style: 'https://demotiles.maplibre.org/style.json',
+      style: 'https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json',
       center: [137, 36],
       zoom: 5
     });
@@ -44,3 +46,5 @@
 </body>
 
 </html>
+
+<!-- https://raw.githubusercontent.com/gsi-cyberjapan/gsivectortile-mapbox-gl-js/master/pale.json -->
