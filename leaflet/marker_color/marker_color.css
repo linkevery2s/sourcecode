@@ -1,0 +1,109 @@
+.marker_red {
+	width: 15px !important;
+	height: 15px !important;
+	margin: -10px !important;
+	border-radius: 100%;
+	border: 2px solid #fdfdfd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+	background-color: #FF0000;
+	z-index: 20 !important;
+}
+
+.marker_orange {
+	width: 15px !important;
+	height: 15px !important;
+	margin: -10px !important;
+	border-radius: 100%;
+	border: 2px solid #fdfdfd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+	background-color: #FFA500;
+	z-index: 20 !important;
+}
+
+.marker_yellow {
+	width: 15px !important;
+	height: 15px !important;
+	margin: -10px !important;
+	border-radius: 100%;
+	border: 2px solid #fdfdfd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+	background-color: #FFFF00;
+	z-index: 20 !important;
+}
+
+.marker_lightblue {
+	width: 15px !important;
+	height: 15px !important;
+	margin: -10px !important;
+	border-radius: 100%;
+	border: 2px solid #fdfdfd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+	background-color: #00FFFF;
+	z-index: 20 !important;
+}
+
+.marker_blue {
+	width: 15px !important;
+	height: 15px !important;
+	margin: -10px !important;
+	border-radius: 100%;
+	border: 2px solid #fdfdfd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+	background-color: #0000FF;
+	z-index: 20 !important;
+}
+
+.marker_purple {
+	width: 15px !important;
+	height: 15px !important;
+	margin: -10px !important;
+	border-radius: 100%;
+	border: 2px solid #fdfdfd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+	background-color: #CC00FF;
+	z-index: 20 !important;
+}
+
+.marker_green {
+	width: 15px !important;
+	height: 15px !important;
+	margin: -10px !important;
+	border-radius: 100%;
+	border: 2px solid #fdfdfd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+	background-color: #008000;
+	z-index: 20 !important;
+}
+
+.marker_lightgreen {
+	width: 15px !important;
+	height: 15px !important;
+	margin: -10px !important;
+	border-radius: 100%;
+	border: 2px solid #fdfdfd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+	background-color: #90EE90;
+	z-index: 20 !important;
+}
+
+.marker_black {
+	width: 15px !important;
+	height: 15px !important;
+	margin: -10px !important;
+	border-radius: 100%;
+	border: 2px solid #fdfdfd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+	background-color: #000000;
+	z-index: 20 !important;
+}
+
+.marker_white {
+	width: 15px !important;
+	height: 15px !important;
+	margin: -10px !important;
+	border-radius: 100%;
+	border: 2px solid #fdfdfd;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+	background-color: #FFFFFF;
+	z-index: 20 !important;
+}
