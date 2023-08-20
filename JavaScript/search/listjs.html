@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja" data-figures="" class="home">
+<head>
+	<meta name="generator" content="Hugo 0.89.4" />
+  <title>キーワード検索</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <script src="./js/list.min.js"></script>
+
+  <title>キーワード検索</title>
+
+  <style>
+    input {
+      color: rgba(0, 119, 184, 0.5);
+      font-size: 1.2em;
+      font-weight: bolder;
+      height: 45px;
+      width: 50%;
+    }
+    input::-webkit-input-placeholder {
+      color: rgba(0, 119, 184, 0.5);
+    }
+
+    #exp{
+      font-size: 1.2em;
+      font-weight: bolder;
+      height: 45px;	
+      background: #007bbb;
+      color: #fff;
+      padding: .5em;
+      cursor: pointer;
+      border-radius: .3em;
+    }
+    
+    #result {
+      margin: 1em;
+    }
+
+    .item_title {
+      text-decoration: none;
+      color: rgba(0, 119, 184, 1);
+      font-weight: bolder;
+    }
+
+    .item_title b {
+     color:#666600;
+     background-color:#ffffdd;
+     font-weight:bold;
+     border:1px solid #bbbb00;
+     margin:0 2px 0 2px;
+     padding:0 2px 0 2px; 
+   }
+
+   .item_ex {
+    background: #fff;
+    margin: 0.5em 2em 1em 1em;
+    padding: 0.5em;
+    font-size: smaller;
+    border-radius: .5em;
+  }
+
+  .item_ex b {
+   color:#666600;
+   background-color:#ffffdd;
+   font-weight:bold;
+   border:1px solid #bbbb00;
+   margin:0 2px 0 2px;
+   padding:0 2px 0 2px;
+ }
+
+ .item {
+   border-top: 1px dotted #000;
+   padding-top: 1em;
+ }
+</style>
+</head>
+
+<body>
+  <center>
+    <h1 class="post_title">キーワード検索</h1>
+
+    <p>キーワードを入力して検索ボタンを押すと絞り込んで検索することができます。</p>
+
+    <div id="sample-list">
+
+      <input class="search" placeholder="検索">
+
+      <ul class="list">
+        <li>
+          <span class="name">Jonny</span>
+          <span class="city">Stockholm</span>
+        </li>
+        <li>
+          <span class="name">Jonas</span>
+          <span class="city">Berlin</span>
+        </li>
+        <li>
+          <span class="name">Gustaf</span>
+          <span class="city">Sundsvall</span>
+        </li>
+        <li>
+          <span class="name">Egon</span>
+          <span class="city">Goteborg</span>
+        </li>
+        <li>
+          <span class="name">Frank</span>
+          <span class="city">Stockholm</span>
+        </li>
+        <li>
+          <span class="name">Ester</span>
+          <span class="city">Berlin</span>
+        </li>
+        <li>
+          <span class="name">Issei</span>
+          <span class="city">Tsukuba</span>
+        </li>
+      </ul>
+      <ul class="pagination"></ul>
+    </div>
+
+  </center>
+
+  <script>
+
+    var options = {
+      valueNames: [ 'name', 'city' ],
+      /*page: 3,
+      pagination: true*/
+    };
+    var featureList = new List( 'sample-list', options);
+  </script>
+
+</body>
+</html>
