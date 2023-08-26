@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja" data-figures="" class="home">
+<head>
+	<meta name="generator" content="Hugo 0.89.4" />
+  <title>キーワード検索</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>キーワード検索</title>
+
+  <style>
+    input {
+      color: rgba(0, 119, 184, 0.5);
+      font-size: 1.2em;
+      font-weight: bolder;
+      height: 45px;
+      width: 50%;
+    }
+    input::-webkit-input-placeholder {
+      color: rgba(0, 119, 184, 0.5);
+    }
+
+    #exp{
+      font-size: 1.2em;
+      font-weight: bolder;
+      height: 45px;	
+      background: #007bbb;
+      color: #fff;
+      padding: .5em;
+      cursor: pointer;
+      border-radius: .3em;
+    }
+    
+    #result {
+      margin: 1em;
+    }
+
+    .item_title {
+      text-decoration: none;
+      color: rgba(0, 119, 184, 1);
+      font-weight: bolder;
+    }
+
+    .item_title b {
+     color:#666600;
+     background-color:#ffffdd;
+     font-weight:bold;
+     border:1px solid #bbbb00;
+     margin:0 2px 0 2px;
+     padding:0 2px 0 2px; 
+   }
+
+   .item_ex {
+    background: #fff;
+    margin: 0.5em 2em 1em 1em;
+    padding: 0.5em;
+    font-size: smaller;
+    border-radius: .5em;
+  }
+
+  .item_ex b {
+   color:#666600;
+   background-color:#ffffdd;
+   font-weight:bold;
+   border:1px solid #bbbb00;
+   margin:0 2px 0 2px;
+   padding:0 2px 0 2px;
+ }
+
+ .item {
+   border-top: 1px dotted #000;
+   padding-top: 1em;
+ }
+
+ ul{
+  padding: 0;
+  margin: 0;
+}
+
+li{
+  list-style: none;
+  display: inline-block;
+  border: 2px solid #007bbb;
+  color: #007bbb;
+  padding: 1em;
+  border-radius: .5em;
+  margin-right: .5em;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+  <center>
+    <h1 class="post_title">キーワード検索</h1>
+
+    <p>キーワードを入力して検索ボタンを押すと絞り込んで検索することができます。</p>
+
+    <input type="text" name="text1" id="text" size="15" autocomplete="off" autofocus placeholder="キーワード検索" />  <span id="exp">リセット</span><br><br>
+
+    <ul><div id="koumoku"></div></ul>
+
+    <p><span id="resultCount"></span></p>
+
+  </center>
+
+  <div id="result"></div>
+
+  <script src="data.json"></script>
+
+  <script type="module">
+
+      let i_bunkatu = 10;// 何行にするか
+
+    /* 最初のロード時 */
+    onload = async () => {
+      result.innerHTML = "";
+
+      let kensaku = text.value;
+
+      const max = data.length;
+      let count = 0;
+
+
+
+      let b = Math.ceil( max / i_bunkatu ) ;
+      console.log(b);
+
+      koumoku.innerHTML = "";
+
+      let bunkatu =[];
+
+      for (let i = 0; i< b; i++){
+        let v = i + 1;
+        koumoku.innerHTML += '<li onclick="kirikae(' + v + ')">' + v + '</li>';
+
+        bunkatu[i] ="";
+
+        for (let mm = 0; mm < i_bunkatu; mm++) {
+
+          if (i * i_bunkatu + mm < max){
+
+            bunkatu[i] += '<div class="item">' +
+            '<span class="item_title">' + data[i * i_bunkatu + mm].title + '</span>' +
+            '<div class="item_ex">' + data[i * i_bunkatu + mm].body + '</div>' +
+            '</div>';
+
+            count = count + 1;
+
+          }
+          else{}
+        }
+
+      }
+
+      result.innerHTML = bunkatu[0];
+
+      resultCount.innerHTML = '<b>' + count + '</b> 件見つかりました（' + max + '件中）';
+
+      window.kirikae = (x) =>{
+
+        result.innerHTML = "";
+
+        result.innerHTML = bunkatu[x-1];
+      }
+
+    }
+
+
+  /* 検索ボタン押下時 */
+    document.getElementById('text').addEventListener('keyup',
+
+      async () => {
+
+        if(text.value != ""){
+
+          result.innerHTML = "";
+          koumoku.innerHTML = "";
+
+          let kensaku = text.value;
+
+          let kensaku_arr =[];
+
+          /*let kensaku_b = kensaku.split(/[ 　,、]+/)
+
+          const kensaku_count = kensaku_b.length;
+
+          console.log(kensaku_b);*/
+
+          const max = data.length;
+          let count = 0;
+
+          for (let j = 0; j < max; j++) {
+            if (data[j].title.indexOf(kensaku) != -1 || data[j].body.indexOf(kensaku) != -1) {
+              kensaku_arr[j] = '<div class="item">' +
+              '<span class="item_title">' + data[j].title.replaceAll(kensaku, "<b>" + kensaku + "</b>") + '</span>' +
+              '<div class="item_ex">' + data[j].body.replaceAll(kensaku, "<b>" + kensaku + "</b>") + '</div>' +
+              '</div>';
+            }else{
+              kensaku_arr[j] = "";
+            }
+          }
+
+          let new_arr = kensaku_arr.filter(function(x){
+            return !(x == ""); 
+          })
+          console.log(new_arr);
+
+          count = new_arr.length;
+
+          let b = Math.ceil( count / i_bunkatu ) ;
+          console.log(b);
+
+          let bunkatu2 =[];
+
+
+          for (let i = 0; i< b; i++){
+            let v = i + 1;
+            koumoku.innerHTML += '<li onclick="kirikae2(' + v + ')">' + v + '</li>';
+
+            bunkatu2[i] =　"";
+
+            for (let mm = 0; mm < i_bunkatu; mm++) {
+
+              if (i * i_bunkatu + mm < count){
+
+                bunkatu2[i] += new_arr[i * i_bunkatu + mm];
+              }
+              else{}
+            }
+
+          }
+
+
+          result.innerHTML = bunkatu2[0];
+
+
+          resultCount.innerHTML = '<b>' + count + '</b> 件見つかりました（' + max + '件中）';
+
+          window.kirikae2 = (x) =>{
+
+            result.innerHTML = "";
+
+            result.innerHTML = bunkatu2[x-1];
+          }
+
+        }else{
+
+          window.location.reload();
+        }
+
+      }
+
+      );
+
+    document.getElementById('exp').addEventListener('click',
+
+      async () =>{
+
+        window.location.reload();
+
+      }
+      );
+
+    </script>
+
+  </body>
+  </html>
