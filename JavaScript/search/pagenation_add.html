@@ -40,54 +40,54 @@
     }
 
     .item_title b {
-     color:#666600;
-     background-color:#ffffdd;
-     font-weight:bold;
-     border:1px solid #bbbb00;
-     margin:0 2px 0 2px;
-     padding:0 2px 0 2px; 
-   }
+      color:#666600;
+      background-color:#ffffdd;
+      font-weight:bold;
+      border:1px solid #bbbb00;
+      margin:0 2px 0 2px;
+      padding:0 2px 0 2px; 
+    }
 
-   .item_ex {
-    background: #fff;
-    margin: 0.5em 2em 1em 1em;
-    padding: 0.5em;
-    font-size: smaller;
-    border-radius: .5em;
-  }
+    .item_ex {
+      background: #fff;
+      margin: 0.5em 2em 1em 1em;
+      padding: 0.5em;
+      font-size: smaller;
+      border-radius: .5em;
+    }
 
-  .item_ex b {
-   color:#666600;
-   background-color:#ffffdd;
-   font-weight:bold;
-   border:1px solid #bbbb00;
-   margin:0 2px 0 2px;
-   padding:0 2px 0 2px;
- }
+    .item_ex b {
+      color:#666600;
+      background-color:#ffffdd;
+      font-weight:bold;
+      border:1px solid #bbbb00;
+      margin:0 2px 0 2px;
+      padding:0 2px 0 2px;
+    }
 
- .item {
-   border-top: 1px dotted #000;
-   padding-top: 1em;
- }
+    .item {
+      border-top: 1px dotted #000;
+      padding-top: 1em;
+    }
 
- ul{
-  padding: 0;
-  margin: 0;
-}
+    ul{
+      padding: 0;
+      margin: 0;
+    }
 
-li{
-  list-style: none;
-  display: inline-block;
-  border: 2px solid #007bbb;
-  color: #007bbb;
-  padding: 1em;
-  border-radius: .5em;
-  margin-right: .5em;
-  cursor: pointer;
-  font-weight: bold;
-}
+    li{
+      list-style: none;
+      display: inline-block;
+      border: 2px solid #007bbb;
+      color: #007bbb;
+      padding: 1em;
+      border-radius: .5em;
+      margin-right: .5em;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-</style>
+  </style>
 </head>
 
 <body>
@@ -155,6 +155,10 @@ li{
 
         result.innerHTML = bunkatu[0];
 
+        let list = document.querySelector("#page_list");
+        list.childNodes[0].childNodes[0].style.backgroundColor = "#007bbb";
+        list.childNodes[0].childNodes[0].style.color = "#ffffff";
+
         resultCount.innerHTML = '<b>' + count + '</b> 件見つかりました（' + max + '件中）';
 
         window.kirikae = (x) =>{
@@ -163,15 +167,15 @@ li{
 
           result.innerHTML = bunkatu[x-1];
 
-          let list = document.querySelector("#page_list");
-
           for (let i = 0; i < b; i++){
 
             if(i == x-1){
 
               list.childNodes[0].childNodes[i].style.backgroundColor = "#007bbb";
               list.childNodes[0].childNodes[i].style.color = "#ffffff";
+
             }else{
+
               list.childNodes[0].childNodes[i].style.backgroundColor = "#ffffff";
               list.childNodes[0].childNodes[i].style.color = "#007bbb";
 
@@ -187,7 +191,7 @@ li{
 
 
   /* 検索ボタン押下時 */
-      document.getElementById('text').addEventListener('keyup',
+      document.getElementById('text').addEventListener('input',
 
         async () => {
 
@@ -260,6 +264,9 @@ li{
 
             result.innerHTML = bunkatu2[0];
 
+            let list = document.querySelector("#page_list");
+            list.childNodes[0].childNodes[0].style.backgroundColor = "#007bbb";
+            list.childNodes[0].childNodes[0].style.color = "#ffffff";
 
             resultCount.innerHTML = '<b>' + count + '</b> 件見つかりました（' + max + '件中）';
 
@@ -277,7 +284,9 @@ li{
 
                   list.childNodes[0].childNodes[i].style.backgroundColor = "#007bbb";
                   list.childNodes[0].childNodes[i].style.color = "#ffffff";
+
                 }else{
+
                   list.childNodes[0].childNodes[i].style.backgroundColor = "#ffffff";
                   list.childNodes[0].childNodes[i].style.color = "#007bbb";
 
@@ -286,14 +295,14 @@ li{
               }
             }
 
-            }else{
+          }else{
 
-              window.location.reload();
-            }
-
+            window.location.reload();
           }
 
-          );
+        }
+
+        );
 
       document.getElementById('exp').addEventListener('click',
 
