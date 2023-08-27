@@ -100,7 +100,7 @@ li{
 
     <input type="text" name="text1" id="text" size="15" autocomplete="off" autofocus placeholder="キーワード検索" />  <span id="exp">リセット</span><br><br>
 
-    <ul><div id="koumoku"></div></ul>
+    <ul id="page_list"><div id="koumoku"></div></ul>
 
     <p><span id="resultCount"></span></p>
 
@@ -115,73 +115,92 @@ li{
       let i_bunkatu = 10;// 何行にするか
 
     /* 最初のロード時 */
-    onload = async () => {
-      result.innerHTML = "";
+      onload = async () => {
+        result.innerHTML = "";
 
-      let kensaku = text.value;
+        let kensaku = text.value;
 
-      const max = data.length;
-      let count = 0;
+        const max = data.length;
+        let count = 0;
 
 
 
-      let b = Math.ceil( max / i_bunkatu ) ;
-      console.log(b);
+        let b = Math.ceil( max / i_bunkatu ) ;
+        console.log(b);
 
-      koumoku.innerHTML = "";
+        koumoku.innerHTML = "";
 
-      let bunkatu =[];
+        let bunkatu =[];
 
-      for (let i = 0; i< b; i++){
-        let v = i + 1;
-        koumoku.innerHTML += '<li onclick="kirikae(' + v + ')">' + v + '</li>';
+        for (let i = 0; i< b; i++){
+          let v = i + 1;
+          koumoku.innerHTML += '<li onclick="kirikae(' + v + ')">' + v + '</li>';
 
-        bunkatu[i] ="";
+          bunkatu[i] ="";
 
-        for (let mm = 0; mm < i_bunkatu; mm++) {
+          for (let mm = 0; mm < i_bunkatu; mm++) {
 
-          if (i * i_bunkatu + mm < max){
+            if (i * i_bunkatu + mm < max){
 
-            bunkatu[i] += '<div class="item">' +
-            '<span class="item_title">' + data[i * i_bunkatu + mm].title + '</span>' +
-            '<div class="item_ex">' + data[i * i_bunkatu + mm].body + '</div>' +
-            '</div>';
+              bunkatu[i] += '<div class="item">' +
+              '<span class="item_title">' + data[i * i_bunkatu + mm].title + '</span>' +
+              '<div class="item_ex">' + data[i * i_bunkatu + mm].body + '</div>' +
+              '</div>';
 
-            count = count + 1;
+              count = count + 1;
+
+            }
+            else{}
+          }
+
+        }
+
+        result.innerHTML = bunkatu[0];
+
+        resultCount.innerHTML = '<b>' + count + '</b> 件見つかりました（' + max + '件中）';
+
+        window.kirikae = (x) =>{
+
+          result.innerHTML = "";
+
+          result.innerHTML = bunkatu[x-1];
+
+          let list = document.querySelector("#page_list");
+
+          for (let i = 0; i < b; i++){
+
+            if(i == x-1){
+
+              list.childNodes[0].childNodes[i].style.backgroundColor = "#007bbb";
+              list.childNodes[0].childNodes[i].style.color = "#ffffff";
+            }else{
+              list.childNodes[0].childNodes[i].style.backgroundColor = "#ffffff";
+              list.childNodes[0].childNodes[i].style.color = "#007bbb";
+
+            }
+
+
 
           }
-          else{}
+
         }
 
       }
 
-      result.innerHTML = bunkatu[0];
-
-      resultCount.innerHTML = '<b>' + count + '</b> 件見つかりました（' + max + '件中）';
-
-      window.kirikae = (x) =>{
-
-        result.innerHTML = "";
-
-        result.innerHTML = bunkatu[x-1];
-      }
-
-    }
-
 
   /* 検索ボタン押下時 */
-    document.getElementById('text').addEventListener('keyup',
+      document.getElementById('text').addEventListener('keyup',
 
-      async () => {
+        async () => {
 
-        if(text.value != ""){
+          if(text.value != ""){
 
-          result.innerHTML = "";
-          koumoku.innerHTML = "";
+            result.innerHTML = "";
+            koumoku.innerHTML = "";
 
-          let kensaku = text.value;
+            let kensaku = text.value;
 
-          let kensaku_arr =[];
+            let kensaku_arr =[];
 
           /*let kensaku_b = kensaku.split(/[ 　,、]+/)
 
@@ -189,82 +208,105 @@ li{
 
           console.log(kensaku_b);*/
 
-          const max = data.length;
-          let count = 0;
+            const max = data.length;
+            let count = 0;
 
-          for (let j = 0; j < max; j++) {
-            if (data[j].title.indexOf(kensaku) != -1 || data[j].body.indexOf(kensaku) != -1) {
-              kensaku_arr[j] = '<div class="item">' +
-              '<span class="item_title">' + data[j].title.replaceAll(kensaku, "<b>" + kensaku + "</b>") + '</span>' +
-              '<div class="item_ex">' + data[j].body.replaceAll(kensaku, "<b>" + kensaku + "</b>") + '</div>' +
-              '</div>';
-            }else{
-              kensaku_arr[j] = "";
-            }
-          }
-
-          let new_arr = kensaku_arr.filter(function(x){
-            return !(x == ""); 
-          })
-          console.log(new_arr);
-
-          count = new_arr.length;
-
-          let b = Math.ceil( count / i_bunkatu ) ;
-          console.log(b);
-
-          let bunkatu2 =[];
-
-
-          for (let i = 0; i< b; i++){
-            let v = i + 1;
-            koumoku.innerHTML += '<li onclick="kirikae2(' + v + ')">' + v + '</li>';
-
-            bunkatu2[i] =　"";
-
-            for (let mm = 0; mm < i_bunkatu; mm++) {
-
-              if (i * i_bunkatu + mm < count){
-
-                bunkatu2[i] += new_arr[i * i_bunkatu + mm];
+            for (let j = 0; j < max; j++) {
+              if (data[j].title.indexOf(kensaku) != -1 || data[j].body.indexOf(kensaku) != -1) {
+                kensaku_arr[j] = '<div class="item">' +
+                '<span class="item_title">' + data[j].title.replaceAll(kensaku, "<b>" + kensaku + "</b>") + '</span>' +
+                '<div class="item_ex">' + data[j].body.replaceAll(kensaku, "<b>" + kensaku + "</b>") + '</div>' +
+                '</div>';
+              }else{
+                kensaku_arr[j] = "";
               }
-              else{}
+            }
+
+            let new_arr = kensaku_arr.filter(function(x){
+              return !(x == ""); 
+            })
+            console.log(new_arr);
+
+            count = new_arr.length;
+
+            let b = Math.ceil( count / i_bunkatu ) ;
+            console.log(b);
+
+          /* 検索結果が0の場合 */
+            if(b == 0){
+              result.innerHTML = "検索結果はありませんでした。別のキーワードを入力してください。";
+              resultCount.innerHTML = '<b>' + b + '</b> 件見つかりました（' + max + '件中）';
+              return false;
+            }else{}
+
+            let bunkatu2 =[];
+
+
+            for (let i = 0; i< b; i++){
+              let v = i + 1;
+              koumoku.innerHTML += '<li onclick="kirikae2(' + v + ')">' + v + '</li>';
+
+              bunkatu2[i] =　"";
+
+              for (let mm = 0; mm < i_bunkatu; mm++) {
+
+                if (i * i_bunkatu + mm < count){
+
+                  bunkatu2[i] += new_arr[i * i_bunkatu + mm];
+                }
+                else{}
+              }
+
+            }
+
+
+            result.innerHTML = bunkatu2[0];
+
+
+            resultCount.innerHTML = '<b>' + count + '</b> 件見つかりました（' + max + '件中）';
+
+            window.kirikae2 = (x) =>{
+
+              result.innerHTML = "";
+
+              result.innerHTML = bunkatu2[x-1];
+
+              let list = document.querySelector("#page_list");
+
+              for (let i = 0; i < b; i++){
+
+                if(i == x-1){
+
+                  list.childNodes[0].childNodes[i].style.backgroundColor = "#007bbb";
+                  list.childNodes[0].childNodes[i].style.color = "#ffffff";
+                }else{
+                  list.childNodes[0].childNodes[i].style.backgroundColor = "#ffffff";
+                  list.childNodes[0].childNodes[i].style.color = "#007bbb";
+
+                }
+
+              }
+            }
+
+            }else{
+
+              window.location.reload();
             }
 
           }
 
+          );
 
-          result.innerHTML = bunkatu2[0];
+      document.getElementById('exp').addEventListener('click',
 
-
-          resultCount.innerHTML = '<b>' + count + '</b> 件見つかりました（' + max + '件中）';
-
-          window.kirikae2 = (x) =>{
-
-            result.innerHTML = "";
-
-            result.innerHTML = bunkatu2[x-1];
-          }
-
-        }else{
+        async () =>{
 
           window.location.reload();
+
         }
+        );
 
-      }
+      </script>
 
-      );
-
-    document.getElementById('exp').addEventListener('click',
-
-      async () =>{
-
-        window.location.reload();
-
-      }
-      );
-
-    </script>
-
-  </body>
-  </html>
+    </body>
+    </html>
