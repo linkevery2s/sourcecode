@@ -2,37 +2,70 @@
 <html lang="ja">
 
 <head>
-  <meta charset='UTF-8' name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
-  <title>OpenStreetMap</title>
+  <meta charset='UTF-8' name='viewport'
+    content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
+  <title>lat,lng,zoom,bearing,pitch</title>
   <script src='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js'></script>
   <link href='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css' rel='stylesheet' />
   <style>
-    html,body,#map {
+    html,
+    body,
+    #map {
       width: 100%;
       height: 100%;
       padding: 0;
       margin: 0;
+    }
+
+    .side_menu {
+      position: absolute;
+      top: 50%;
+      transform: translate(10px, -50%);
+      z-index: 15;
+    }
+
+    .button {
+      cursor: pointer;
+      color: #000000;
+      background: rgba(255, 255, 255, .8);
+      border: 1px solid #000000;
+      padding: .5em;
+      border-radius: .5em;
+      border: 1px solid #000000;
     }
   </style>
   <script type="module">
     /* OpenStreetMap ベクトルタイル */
     const map = new maplibregl.Map({
       container: 'map',
-      style: 'https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json',
+      style: 'https://tile.openstreetmap.jp/styles/maptiler-basic-ja/style.json',
       center: [137, 36],
-      zoom: 5
+      zoom: 5,
+      pitch: 45,
+      bearing: -10,
+      hash: true
     });
 
     map.addControl(new maplibregl.NavigationControl());
 
     map.addControl(new maplibregl.GeolocateControl({
-        positionOptions: {
-            enableHighAccuracy: false
-        },
-        fitBoundsOptions: {maxZoom: 13},
-        trackUserLocation: true,
-        showUserLocation: true
+      positionOptions: {
+        enableHighAccuracy: false
+      },
+      fitBoundsOptions: { maxZoom: 13 },
+      trackUserLocation: true,
+      showUserLocation: true
     }));
+
+    function rotateCamera(timestamp) {
+      map.rotateTo((timestamp / 100) % 360, { duration: 0 });
+      requestAnimationFrame(rotateCamera);
+    };
+
+    const button = document.querySelector('.button');
+    button.addEventListener('click', () => {
+      rotateCamera(0);
+    });
 
   </script>
 </head>
@@ -43,8 +76,10 @@
 
   <div id='map'></div>
 
+  <span class="side_menu">
+    <div class="button mb-1"><i class="fa-solid fa-xl fa-rotate"></i></div>
+  </span>
+
 </body>
 
 </html>
-
-<!-- https://raw.githubusercontent.com/gsi-cyberjapan/gsivectortile-mapbox-gl-js/master/pale.json -->

@@ -3,9 +3,10 @@
 
 <head>
   <meta charset='UTF-8' name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>
-  <title>geojsonを扱う</title>
-  <script src='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js'></script>
-  <link href='https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css' rel='stylesheet' />
+  <title>日本遺産ARマップ</title>
+  <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@3.5.2/dist/maplibre-gl.css' />
+  <script src='https://unpkg.com/maplibre-gl@3.5.2/dist/maplibre-gl.js'></script>
+
   <style>
     html,body,#map {
       width: 100%;
@@ -13,58 +14,61 @@
       padding: 0;
       margin: 0;
     }
+
+    h3{
+      padding:0;
+      margin: 0;
+    }
+
+
   </style>
   <script type="module">
+
+    onload = () =>{
     /* OpenStreetMap ベクトルタイル */
     const map = new maplibregl.Map({
       container: 'map',
       style: 'https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json',
       center: [137, 36],
+      pitch: 60,
       zoom: 5
     });
 
     map.on('load', function () {
-      map.addSource('aichi', {
+    // サークル設定
+      map.addSource('point', {
         type: 'geojson',
-        data: './aichi.geojson'
+        data: './aaa.geojson'
       });
-
     // スタイル設定
       map.addLayer({
-        'id': 'aichi',
+        'id': 'point',
         'type': 'circle',
-        'source': 'aichi',
+        'source': 'point',
         'layout': {},
         'paint': {
-          'circle-color': '#2ca9e1',
-          'circle-radius': 10,
-          'circle-opacity': 0.8,
-          'circle-stroke-color': '#ffffff',
-          'circle-stroke-width': 1,
+          'circle-color': '#FF0000',
+          'circle-radius': 10
         }
       });
     });
 
-    map.on('click', 'aichi', function (e) {
-      let coordinates = e.features[0].geometry.coordinates.slice();
-      let name = e.features[0].properties.Name;
+    map.on('click', 'point', (e) => {
+      const coordinates = e.features[0].geometry.coordinates.slice();
+      const description = "<h3>" + e.features[0].properties.name + "</h3>" + e.features[0].properties.description + '<br><a href="./data/' + e.features[0].properties.id +'.html">AR</a>';
 
+            // Ensure that if the map is zoomed out such that multiple
+            // copies of the feature are visible, the popup appears
+            // over the copy being pointed to.
       while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
       }
 
       new maplibregl.Popup()
       .setLngLat(coordinates)
-      .setHTML(name)
+      .setHTML(description)
+      .setMaxWidth("300px")
       .addTo(map);
-    });
-
-
-    map.on('mouseenter', 'aichi', function () {
-        map.getCanvas().style.cursor = 'pointer';
-    });
-    map.on('mouseleave', 'aichi', function () {
-        map.getCanvas().style.cursor = '';
     });
 
     map.addControl(new maplibregl.NavigationControl());
@@ -77,6 +81,8 @@
       trackUserLocation: true,
       showUserLocation: true
     }));
+
+  }
 
   </script>
 </head>
